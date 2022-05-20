@@ -76,4 +76,26 @@ const confirmar = async (req, res) => {
   }
 };
 
-export { registrar, autenticar, confirmar };
+const olvidePassword = async (req, res) => {
+  const { email } = req.body;
+  const usuario = await Usuario.findOne({ email });
+
+  // Reviso si el usuario existe
+  if (!usuario) {
+    const error = new Error("El usuario no existe");
+    return res.status(403).json({ msg: error.message });
+  }
+
+  // Si el usuario existe
+  try {
+    usuario.token = generarId();
+    await usuario.save();
+    res.json({
+      msg: "Hemos enviado un mail con las instrucciones para generar una nueva contraseña",
+    });
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+export { registrar, autenticar, confirmar, olvidePassword };
