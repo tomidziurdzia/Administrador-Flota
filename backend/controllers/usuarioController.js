@@ -67,7 +67,8 @@ const confirmar = async (req, res) => {
 
   // Si llega aca es porque el token es valido
   try {
-    (usuarioConfirmar.confirmado = true), (usuario.confirmar.token = "");
+    usuarioConfirmar.confirmado = true;
+    usuarioConfirmar.token = "";
     await usuarioConfirmar.save();
     res.json({ msj: "Usuario confirmado correctamente" });
   } catch (error) {

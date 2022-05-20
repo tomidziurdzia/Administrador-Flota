@@ -9,6 +9,6 @@ const router = express.Router();
 
 router.post("/", registrar);
 router.post("/login", autenticar);
-router.get("/confirmar/:token");
+router.get("/confirmar/:token", confirmar);
 
 export default router;
