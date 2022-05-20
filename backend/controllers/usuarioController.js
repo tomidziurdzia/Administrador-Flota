@@ -135,6 +135,12 @@ const nuevoPassword = async (req, res) => {
   }
 };
 
+const perfil = async (req, res) => {
+  //Inicio sesion y envio el usuario
+  const { usuario } = req;
+  res.json(usuario);
+};
+
 export {
   registrar,
   autenticar,
@@ -142,4 +148,5 @@ export {
   olvidePassword,
   comprobarToken,
   nuevoPassword,
+  perfil,
 };
