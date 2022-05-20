@@ -10,7 +10,6 @@ conectarDB();
 
 // Routing
 app.use("/api/usuarios", usuarioRoutes);
-
 const PORT = process.env.PORT || 4000;
 
 app.listen(4000, () => {
