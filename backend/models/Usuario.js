@@ -33,6 +33,8 @@ const usuarioSchema = mongoose.Schema(
 );
 
 // Middleware
+
+// Hasheo de password
 usuarioSchema.pre("save", async function (next) {
   if (!this.isModified("password")) {
     next();
@@ -40,6 +42,11 @@ usuarioSchema.pre("save", async function (next) {
   const salt = await bcrypt.genSalt(10);
   this.password = await bcrypt.hash(this.password, salt);
 });
+
+// Comprobar password
+usuarioSchema.methods.comprobarPassword = async function (passwordFormulario) {
+  return await bcrypt.compare(passwordFormulario, this.password);
+};
 
 const Usuario = mongoose.model("Usuario", usuarioSchema);
 
