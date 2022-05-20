@@ -111,4 +111,35 @@ const comprobarToken = async (req, res) => {
   }
 };
 
-export { registrar, autenticar, confirmar, olvidePassword, comprobarToken };
+const nuevoPassword = async (req, res) => {
+  //Leo el token en la url, leo la nueva contraseña
+  const { token } = req.params;
+  const { password } = req.body;
+
+  // Busco el usuario
+  const usuario = await Usuario.findOne({ token });
+
+  if (usuario) {
+    // Le asigno la nueva password al usuario y dejo en blanco el token
+    (usuario.password = password), (usuario.token = "");
+    try {
+      // guardo el usuario
+      await usuario.save();
+      res.json({ msg: "La contraseña se modifico correctamente" });
+    } catch (error) {
+      console.log(error);
+    }
+  } else {
+    const error = new Error("El token es invalido");
+    return res.status(404).json({ msg: error.message });
+  }
+};
+
+export {
+  registrar,
+  autenticar,
+  confirmar,
+  olvidePassword,
+  comprobarToken,
+  nuevoPassword,
+};
