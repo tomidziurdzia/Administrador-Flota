@@ -1,6 +1,9 @@
 import Camion from "../models/Camion.js";
 
-const obtenerCamiones = async (req, res) => {};
+const obtenerCamiones = async (req, res) => {
+  const camiones = await Camion.find().where("creador").equals(req.usuario);
+  res.json(camiones);
+};
 
 const nuevoCamion = async (req, res) => {
   const { patente } = req.body;
