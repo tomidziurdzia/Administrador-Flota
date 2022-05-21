@@ -23,6 +23,20 @@ const camionSchema = mongoose.Schema(
       trim: true,
       required: true,
     },
+    fechaVtv: {
+      type: Date,
+      required: true,
+      default: Date.now(),
+    },
+    fechaRuta: {
+      type: Date,
+      required: true,
+      default: Date.now(),
+    },
+    fechaSenasa: {
+      type: Date,
+      default: Date.now(),
+    },
     creador: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "Usuario",
