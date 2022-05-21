@@ -20,18 +20,21 @@ const choferesSchema = mongoose.Schema(
     fechaCarnet: {
       type: Date,
       required: true,
+      default: Date.now(),
     },
     fechaLinti: {
       type: Date,
       required: true,
+      default: Date.now(),
     },
     fechaPsicofisico: {
       type: Date,
       required: true,
+      default: Date.now(),
     },
     fechaLibretaSanitaria: {
       type: Date,
-      default: null,
+      default: Date.now(),
     },
     creador: {
       type: mongoose.Schema.Types.ObjectId,
