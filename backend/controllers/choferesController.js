@@ -1,7 +1,8 @@
 import Chofer from "../models/Chofer.js";
 
 const obtenerChoferes = async (req, res) => {
-  res.send("obtener choferes");
+  const choferes = await Chofer.find().where("creador").equals(req.usuario);
+  res.json(choferes);
 };
 const nuevoChofer = async (req, res) => {
   const chofer = new Chofer(req.body);
