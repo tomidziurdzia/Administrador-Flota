@@ -1,6 +1,11 @@
 import Acompanante from "../models/Acompanante.js";
 
-const obtenerAcompanantes = async (req, res) => {};
+const obtenerAcompanantes = async (req, res) => {
+  const acompanantes = await Acompanante.find()
+    .where("creador")
+    .equals(req.usuario);
+  res.json(acompanantes);
+};
 
 const nuevoAcompanante = async (req, res) => {
   const { cuil } = req.body;
