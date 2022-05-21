@@ -74,8 +74,32 @@ const actualizarChofer = async (req, res) => {
   }
 };
 
-const eliminarChofer = async (req, res) => {};
+const eliminarChofer = async (req, res) => {
+  const { id } = req.params;
+  const chofer = await Chofer.findById(id);
+
+  if (!chofer) {
+    const error = new Error("El chofer no fue encontrado");
+    return res.status(404).json({ msg: error.message });
+  }
+
+  if (chofer.creador.toString() !== req.usuario._id.toString()) {
+    const error = new Error("Accion no valida");
+    return res.status(404).json({ msg: error.message });
+  }
+
+  try {
+    await chofer.deleteOne();
+    res.json({
+      msg: `El chofer ${chofer.nombre} ${chofer.apellido} fue eliminado correctamente`,
+    });
+  } catch (error) {
+    console.log(error);
+  }
+};
+
 const agregarColaborador = async (req, res) => {};
+
 const eliminarColaborador = async (req, res) => {};
 
 export {
