@@ -72,7 +72,29 @@ const actualizarCamion = async (req, res) => {
   }
 };
 
-const eliminarCamion = async (req, res) => {};
+const eliminarCamion = async (req, res) => {
+  const { id } = req.params;
+  const camion = await Camion.findById(id);
+
+  if (!camion) {
+    const error = new Error("El camion no fue encontrado");
+    return res.status(404).json({ msg: error.message });
+  }
+
+  if (camion.creador.toString() !== req.usuario._id.toString()) {
+    const error = new Error("Accion no valida");
+    return res.status(404).json({ msg: error.message });
+  }
+
+  try {
+    await camion.deleteOne();
+    res.json({
+      msg: `El camion ${camion.marca} ${camion.modelo} patente ${camion.patente} fue eliminado correctamente`,
+    });
+  } catch (error) {
+    console.log(error);
+  }
+};
 
 const agregarColaborador = async (req, res) => {};
 
