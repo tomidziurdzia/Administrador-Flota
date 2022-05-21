@@ -42,7 +42,35 @@ const obtenerCamion = async (req, res) => {
   res.json(camion);
 };
 
-const actualizarCamion = async (req, res) => {};
+const actualizarCamion = async (req, res) => {
+  const { id } = req.params;
+  const camion = await Camion.findById(id);
+
+  if (!camion) {
+    const error = new Error("El camion no fue encontrado");
+    return res.status(404).json({ msg: error.message });
+  }
+
+  if (camion.creador.toString() !== req.usuario._id.toString()) {
+    const error = new Error("Accion no valida");
+    return res.status(404).json({ msg: error.message });
+  }
+
+  camion.marca = req.body.marca || camion.marca;
+  camion.modelo = req.body.modelo || camion.modelo;
+  camion.patente = req.body.patente || camion.patente;
+  camion.tipo = req.body.tipo || camion.tipo;
+  camion.fechaVtv = req.body.fechaVtv || camion.fechaVtv;
+  camion.fechaRuta = req.body.fechaRuta || camion.fechaRuta;
+  camion.fechaSenasa = req.body.fechaSenasa || camion.fechaSenasa;
+
+  try {
+    const camionAlmacenado = await camion.save();
+    res.json(camionAlmacenado);
+  } catch (error) {
+    console.log(error);
+  }
+};
 
 const eliminarCamion = async (req, res) => {};
 
