@@ -2,8 +2,8 @@ import express from "express";
 import dotenv from "dotenv";
 import conectarDB from "./config/db.js";
 import usuarioRoutes from "./routes/usuarioRoutes.js";
-import choferRouter from "./routes/choferRoutes.js";
-import acompananteRouter from "./routes/acompananteRouter.js";
+import choferRoutes from "./routes/choferRoutes.js";
+import acompananteRoutes from "./routes/acompananteRoutes.js";
 
 const app = express();
 app.use(express.json());
@@ -12,8 +12,8 @@ conectarDB();
 
 // Routing
 app.use("/api/usuarios", usuarioRoutes);
-app.use("/api/choferes", choferRouter);
-app.use("/api/acompanantes", acompananteRouter);
+app.use("/api/choferes", choferRoutes);
+app.use("/api/acompanantes", acompananteRoutes);
 
 const PORT = process.env.PORT || 4000;
 

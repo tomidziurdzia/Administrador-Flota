@@ -7,7 +7,7 @@ import {
   eliminarAcompanante,
   agregarColaborador,
   eliminarColaborador,
-} from "../controllers/acompanantesController";
+} from "../controllers/acompanantesController.js";
 
 import checkAuth from "../middleware/checkAuth.js";
 
