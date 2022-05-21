@@ -4,6 +4,7 @@ import conectarDB from "./config/db.js";
 import usuarioRoutes from "./routes/usuarioRoutes.js";
 import choferRoutes from "./routes/choferRoutes.js";
 import acompananteRoutes from "./routes/acompananteRoutes.js";
+import camionRoutes from "./routes/camionRoutes.js";
 
 const app = express();
 app.use(express.json());
@@ -14,6 +15,7 @@ conectarDB();
 app.use("/api/usuarios", usuarioRoutes);
 app.use("/api/choferes", choferRoutes);
 app.use("/api/acompanantes", acompananteRoutes);
+app.use("/api/camiones", camionRoutes);
 
 const PORT = process.env.PORT || 4000;
 
