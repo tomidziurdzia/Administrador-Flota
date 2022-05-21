@@ -6,10 +6,17 @@ const obtenerChoferes = async (req, res) => {
 };
 
 const nuevoChofer = async (req, res) => {
-  const chofer = new Chofer(req.body);
-  chofer.creador = req.usuario._id;
+  const { cuil } = req.body;
+  const existeChofer = await Chofer.findOne({ cuil });
+
+  if (existeChofer) {
+    const error = new Error("Chofer ya registrado");
+    return res.status(404).json({ msg: error.message });
+  }
 
   try {
+    const chofer = new Chofer(req.body);
+    chofer.creador = req.usuario._id;
     const choferAlmacenado = await chofer.save();
     res.json(choferAlmacenado);
   } catch (error) {
