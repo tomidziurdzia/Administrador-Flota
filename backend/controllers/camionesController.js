@@ -24,7 +24,23 @@ const nuevoCamion = async (req, res) => {
   }
 };
 
-const obtenerCamion = async (req, res) => {};
+const obtenerCamion = async (req, res) => {
+  const { id } = req.params;
+
+  const camion = await Camion.findById(id);
+
+  if (!camion) {
+    const error = new Error("Camion no encontrado");
+    return res.status(404).json({ msg: error.message });
+  }
+
+  if (camion.creador.toString() !== req.usuario._id.toString()) {
+    const error = new Error("Accion no valida");
+    return res.status(404).json({ msg: error.message });
+  }
+
+  res.json(camion);
+};
 
 const actualizarCamion = async (req, res) => {};
 
