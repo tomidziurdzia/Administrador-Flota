@@ -2,7 +2,24 @@ import Camion from "../models/Camion.js";
 
 const obtenerCamiones = async (req, res) => {};
 
-const nuevoCamion = async (req, res) => {};
+const nuevoCamion = async (req, res) => {
+  const { patente } = req.body;
+  const existeCamion = await Camion.findOne({ patente });
+
+  if (existeCamion) {
+    const error = new Error("Camion ya registrado");
+    return res.status(404).json({ msg: error.message });
+  }
+
+  try {
+    const camion = new Camion(req.body);
+    camion.creador = req.usuario._id;
+    const camionAlmacenado = await camion.save();
+    res.json(camionAlmacenado);
+  } catch (error) {
+    console.log(error);
+  }
+};
 
 const obtenerCamion = async (req, res) => {};
 
