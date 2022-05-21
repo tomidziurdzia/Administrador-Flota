@@ -13,9 +13,10 @@ const choferesSchema = mongoose.Schema(
       required: true,
     },
     cuil: {
-      type: String,
+      type: Number,
       trim: true,
       required: true,
+      unique: true,
     },
     fechaCarnet: {
       type: Date,
