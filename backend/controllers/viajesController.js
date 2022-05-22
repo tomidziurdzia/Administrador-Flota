@@ -59,7 +59,11 @@ const obtenerViaje = async (req, res) => {
 const actualizarViaje = async (req, res) => {
   const { id } = req.params;
 
-  const viaje = await Viaje.findById(id);
+  const viaje = await Viaje.findById(id)
+    .populate("patente", "patente")
+    .populate("chofer", "nombre apellido")
+    .populate("acompanante", "nombre apellido");
+
   if (!viaje) {
     const error = new Error("El viaje no fue encontrado");
     return res.status(404).json({ msg: error.message });
@@ -91,6 +95,7 @@ const eliminarViaje = async (req, res) => {
     .populate("patente", "patente")
     .populate("chofer", "nombre apellido")
     .populate("acompanante", "nombre apellido");
+
   if (!viaje) {
     const error = new Error("El viaje no fue encontrado");
     return res.status(404).json({ msg: error.message });
