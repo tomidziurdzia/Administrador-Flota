@@ -1,4 +1,4 @@
-import mongoose, { mongo } from "mongoose";
+import mongoose from "mongoose";
 
 const viajeSchema = mongoose.Schema(
   {
@@ -17,7 +17,7 @@ const viajeSchema = mongoose.Schema(
       ref: "Chofer",
       required: true,
     },
-    acompañante: {
+    acompanante: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "Acompanante",
       default: null,
