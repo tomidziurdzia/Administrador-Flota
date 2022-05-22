@@ -5,8 +5,6 @@ import {
   obtenerChofer,
   actualizarChofer,
   eliminarChofer,
-  agregarColaborador,
-  eliminarColaborador,
 } from "../controllers/choferesController.js";
 
 import checkAuth from "../middleware/checkAuth.js";
@@ -20,8 +18,5 @@ router
   .get(checkAuth, obtenerChofer)
   .put(checkAuth, actualizarChofer)
   .delete(checkAuth, eliminarChofer);
-
-router.post("/agregar-colaborador/:id", checkAuth, agregarColaborador);
-router.post("/eliminar-colaborador", checkAuth, eliminarColaborador);
 
 export default router;

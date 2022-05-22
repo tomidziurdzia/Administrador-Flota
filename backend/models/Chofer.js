@@ -41,12 +41,6 @@ const choferesSchema = mongoose.Schema(
       type: mongoose.Schema.Types.ObjectId,
       ref: "Usuario",
     },
-    colaboradores: [
-      {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: "Usuario",
-      },
-    ],
   },
   {
     timestamps: true,

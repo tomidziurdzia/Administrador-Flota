@@ -96,16 +96,10 @@ const eliminarCamion = async (req, res) => {
   }
 };
 
-const agregarColaborador = async (req, res) => {};
-
-const eliminarColaborador = async (req, res) => {};
-
 export {
   obtenerCamiones,
   nuevoCamion,
   obtenerCamion,
   actualizarCamion,
   eliminarCamion,
-  agregarColaborador,
-  eliminarColaborador,
 };

@@ -94,16 +94,10 @@ const eliminarAcompanante = async (req, res) => {
   }
 };
 
-const agregarColaborador = async (req, res) => {};
-
-const eliminarColaborador = async (req, res) => {};
-
 export {
   obtenerAcompanantes,
   nuevoAcompanante,
   obtenerAcompanante,
   actualizarAcompanante,
   eliminarAcompanante,
-  agregarColaborador,
-  eliminarColaborador,
 };

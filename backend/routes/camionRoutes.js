@@ -5,8 +5,6 @@ import {
   obtenerCamion,
   actualizarCamion,
   eliminarCamion,
-  agregarColaborador,
-  eliminarColaborador,
 } from "../controllers/camionesController.js";
 
 import checkAuth from "../middleware/checkAuth.js";
@@ -20,8 +18,5 @@ router
   .get(checkAuth, obtenerCamion)
   .put(checkAuth, actualizarCamion)
   .delete(checkAuth, eliminarCamion);
-
-router.post("/agregar-colaborador/:id", checkAuth, agregarColaborador);
-router.post("/eliminar-colaborador", checkAuth, eliminarColaborador);
 
 export default router;

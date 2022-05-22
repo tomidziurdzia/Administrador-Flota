@@ -98,16 +98,10 @@ const eliminarChofer = async (req, res) => {
   }
 };
 
-const agregarColaborador = async (req, res) => {};
-
-const eliminarColaborador = async (req, res) => {};
-
 export {
   obtenerChoferes,
   nuevoChofer,
   obtenerChofer,
   actualizarChofer,
   eliminarChofer,
-  agregarColaborador,
-  eliminarColaborador,
 };

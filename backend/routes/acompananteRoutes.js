@@ -5,8 +5,6 @@ import {
   obtenerAcompanante,
   actualizarAcompanante,
   eliminarAcompanante,
-  agregarColaborador,
-  eliminarColaborador,
 } from "../controllers/acompanantesController.js";
 
 import checkAuth from "../middleware/checkAuth.js";
@@ -23,8 +21,4 @@ router
   .get(checkAuth, obtenerAcompanante)
   .put(checkAuth, actualizarAcompanante)
   .delete(checkAuth, eliminarAcompanante);
-
-router.post("/agregar-colaborador/:id", checkAuth, agregarColaborador);
-router.post("/eliminar-colaborador", checkAuth, eliminarColaborador);
-
 export default router;
