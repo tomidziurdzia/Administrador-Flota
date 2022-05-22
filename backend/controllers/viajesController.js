@@ -22,6 +22,7 @@ const nuevoViaje = async (req, res) => {
 
   try {
     const viajeAlmacenado = await Viaje.create(req.body);
+    viajeAlmacenado.creador = req.usuario._id;
     viajeAlmacenado.chofer = existeChofer;
     viajeAlmacenado.patente = existePatente;
     viajeAlmacenado.acompanante = existeAcompanante;
@@ -33,7 +34,27 @@ const nuevoViaje = async (req, res) => {
   }
 };
 
-const obtenerViaje = async (req, res) => {};
+const obtenerViaje = async (req, res) => {
+  const { id } = req.params;
+
+  const viaje = await Viaje.findById(id)
+    .populate("patente", "patente")
+    .populate("chofer", "nombre apellido")
+    .populate("acompanante", "nombre apellido");
+
+  console.log(viaje);
+  if (!viaje) {
+    const error = new Error("El viaje no existe");
+    return res.status(404).json({ msg: error.message });
+  }
+
+  if (viaje.creador.toString() !== req.usuario._id.toString()) {
+    const error = new Error("Accion no valida");
+    return res.status(404).json({ msg: error.message });
+  }
+
+  res.json(viaje);
+};
 
 const actualizarViaje = async (req, res) => {};
 

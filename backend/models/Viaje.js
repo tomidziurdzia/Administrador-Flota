@@ -26,6 +26,10 @@ const viajeSchema = mongoose.Schema(
       type: String,
       required: true,
     },
+    creador: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Usuario",
+    },
   },
   {
     timestamps: true,
