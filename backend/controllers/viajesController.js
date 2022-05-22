@@ -84,6 +84,31 @@ const actualizarViaje = async (req, res) => {
   }
 };
 
-const eliminarViaje = async (req, res) => {};
+const eliminarViaje = async (req, res) => {
+  const { id } = req.params;
+
+  const viaje = await Viaje.findById(id)
+    .populate("patente", "patente")
+    .populate("chofer", "nombre apellido")
+    .populate("acompanante", "nombre apellido");
+  if (!viaje) {
+    const error = new Error("El viaje no fue encontrado");
+    return res.status(404).json({ msg: error.message });
+  }
+
+  if (viaje.creador.toString() !== req.usuario._id.toString()) {
+    const error = new Error("Accion no valida");
+    return res.status(403).json({ msg: error.message });
+  }
+
+  try {
+    await viaje.deleteOne();
+    res.json({
+      msg: `El viaje a ${viaje.destino} fue eliminado correctamente`,
+    });
+  } catch (error) {
+    console.log(error);
+  }
+};
 
 export { nuevoViaje, obtenerViaje, actualizarViaje, eliminarViaje };
