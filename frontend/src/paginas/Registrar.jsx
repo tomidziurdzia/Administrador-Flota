@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 
-const Login = () => {
+const Registrar = () => {
   return (
     <>
       <h1 className="text-primary-blue font-black text-center text-2xl md:text-4xl">
@@ -70,15 +70,12 @@ const Login = () => {
         />
       </form>
       <nav className="lg:flex lg:justify-between">
-        <Link
-          className="block text-center my-5 text-gray-500 text-sm"
-          to="registrar"
-        >
-          ¿No tienes una cuenta? Regístrate
+        <Link className="block text-center my-5 text-gray-500 text-sm" to="/">
+          ¿Ya tienes una cuenta? Inicia sesión
         </Link>
         <Link
           className="block text-center my-5 text-gray-500 text-sm"
-          to="olvide-password"
+          to="/olvide-password"
         >
           Olvide mi contraseña
         </Link>
@@ -87,4 +84,4 @@ const Login = () => {
   );
 };
 
-export default Login;
+export default Registrar;
