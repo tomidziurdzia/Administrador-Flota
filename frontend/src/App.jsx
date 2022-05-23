@@ -1,7 +1,14 @@
-import React from "react";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import AuthLayout from "./layouts/AuthLayout";
 
 const App = () => {
-  return <h1 className="bg-primary-blue">App</h1>;
+  return (
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<AuthLayout />}></Route>
+      </Routes>
+    </BrowserRouter>
+  );
 };
 
 export default App;
