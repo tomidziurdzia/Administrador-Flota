@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
 import { useState } from "react";
+import Alerta from "../components/Alerta";
 
 const Registrar = () => {
   const [nombre, setNombre] = useState("");
@@ -7,12 +8,32 @@ const Registrar = () => {
   const [password, setPassword] = useState("");
   const [repetirPassword, setRepetirPassword] = useState("");
 
+  const [alerta, setAlerta] = useState({});
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+
+    if ([nombre, email, password, repetirPassword].includes("")) {
+      setAlerta({
+        msg: "Todos los campos son obligatorios",
+        error: true,
+      });
+      return;
+    }
+  };
+
+  const { msg } = alerta;
+
   return (
     <>
       <h1 className="text-primary-blue font-black text-center text-2xl md:text-4xl">
         Crear Cuenta
       </h1>
-      <form className="my-5 bg-white shadow rounded-lg p-10">
+      {msg && <Alerta alerta={alerta} />}
+      <form
+        onSubmit={handleSubmit}
+        className="my-5 bg-white shadow rounded-lg p-10"
+      >
         <div className="my-5">
           <label
             className="text-gray-500 block text-xl font-bold"
@@ -79,7 +100,7 @@ const Registrar = () => {
         </div>
         <input
           type="submit"
-          value="Iniciar Sesión"
+          value="Registrar"
           className="bg-primary-blue text-white w-full py-3 font-bold rounded hover:cursor-pointer hover:bg-hover-button transition-colors"
         />
       </form>
