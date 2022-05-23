@@ -4,6 +4,7 @@ module.exports = {
     extend: {
       colors: {
         "primary-blue": "#333B8C",
+        "hover-button": "#293462",
       },
     },
   },
