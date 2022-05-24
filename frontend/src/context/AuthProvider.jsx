@@ -3,7 +3,11 @@ import { useState, useEffect, createContext } from "react";
 const AuthContext = createContext();
 
 const AuthProvider = ({ children }) => {
-  return <AuthContext.Provider value={{}}>{children}</AuthContext.Provider>;
+  const [auth, setAuth] = useState({});
+
+  return (
+    <AuthContext.Provider value={{ setAuth }}>{children}</AuthContext.Provider>
+  );
 };
 
 export { AuthProvider };
