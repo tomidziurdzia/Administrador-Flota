@@ -5,6 +5,7 @@ import Registrar from "./paginas/Registrar";
 import ConfirmarCuenta from "./paginas/ConfirmarCuenta";
 import OlvidePassword from "./paginas/OlvidePassword";
 import NuevoPassword from "./paginas/NuevoPassword";
+import Dashboard from "./paginas/Dashboard";
 
 const App = () => {
   return (
@@ -12,6 +13,7 @@ const App = () => {
       <Routes>
         <Route path="/" element={<AuthLayout />}>
           <Route index element={<Login />} />
+          <Route path="dashboard" element={<Dashboard />} />
           <Route path="registrar" element={<Registrar />} />
           <Route path="olvide-password" element={<OlvidePassword />} />
           <Route path="olvide-password/:token" element={<NuevoPassword />} />
