@@ -15,7 +15,7 @@ const App = () => {
           <Route path="registrar" element={<Registrar />} />
           <Route path="olvide-password" element={<OlvidePassword />} />
           <Route path="olvide-password/:token" element={<NuevoPassword />} />
-          <Route path="confirmar" element={<ConfirmarCuenta />} />
+          <Route path="confirmar/:token" element={<ConfirmarCuenta />} />
         </Route>
       </Routes>
     </BrowserRouter>

@@ -1,6 +1,7 @@
 import Usuario from "../models/Usuario.js";
 import generarId from "../helpers/generarId.js";
 import generarJWT from "../helpers/generarJWT.js";
+import { emailRegisto } from "../helpers/email.js";
 
 // Registrar Usuario
 const registrar = async (req, res) => {
@@ -14,7 +15,15 @@ const registrar = async (req, res) => {
   try {
     const usuario = new Usuario(req.body);
     usuario.token = generarId();
+
     await usuario.save();
+
+    // Enviar mail de confirmacion
+    emailRegisto({
+      email: usuario.email,
+      nombre: usuario.nombre,
+      token: usuario.token,
+    });
 
     res.json({ msg: "Usuario creado correctamente, revisa tu email" });
   } catch (error) {
@@ -70,7 +79,7 @@ const confirmar = async (req, res) => {
     usuarioConfirmar.confirmado = true;
     usuarioConfirmar.token = "";
     await usuarioConfirmar.save();
-    res.json({ msj: "Usuario confirmado correctamente" });
+    res.json({ msg: "Usuario confirmado correctamente" });
   } catch (error) {
     console.log(error);
   }
