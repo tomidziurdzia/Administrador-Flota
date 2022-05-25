@@ -12,26 +12,32 @@ import Choferes from "./paginas/Choferes";
 import Acompanantes from "./paginas/Acompanantes";
 
 import { AuthProvider } from "./context/AuthProvider";
+import { ViajesProvider } from "./context/ViajesProvider";
 
 const App = () => {
   return (
     <BrowserRouter>
       <AuthProvider>
-        <Routes>
-          <Route path="/" element={<AuthLayout />}>
-            <Route index element={<Login />} />
-            <Route path="registrar" element={<Registrar />} />
-            <Route path="olvide-password" element={<OlvidePassword />} />
-            <Route path="olvide-password/:token" element={<NuevoPassword />} />
-            <Route path="confirmar/:token" element={<ConfirmarCuenta />} />
-          </Route>
-          <Route path="dashboard" element={<RutaProtegida />}>
-            <Route index element={<Dashboard />} />
-            <Route path="viajes" element={<Viajes />} />
-            <Route path="choferes" element={<Choferes />} />
-            <Route path="acompanantes" element={<Acompanantes />} />
-          </Route>
-        </Routes>
+        <ViajesProvider>
+          <Routes>
+            <Route path="/" element={<AuthLayout />}>
+              <Route index element={<Login />} />
+              <Route path="registrar" element={<Registrar />} />
+              <Route path="olvide-password" element={<OlvidePassword />} />
+              <Route
+                path="olvide-password/:token"
+                element={<NuevoPassword />}
+              />
+              <Route path="confirmar/:token" element={<ConfirmarCuenta />} />
+            </Route>
+            <Route path="dashboard" element={<RutaProtegida />}>
+              <Route index element={<Dashboard />} />
+              <Route path="viajes" element={<Viajes />} />
+              <Route path="choferes" element={<Choferes />} />
+              <Route path="acompanantes" element={<Acompanantes />} />
+            </Route>
+          </Routes>
+        </ViajesProvider>
       </AuthProvider>
     </BrowserRouter>
   );

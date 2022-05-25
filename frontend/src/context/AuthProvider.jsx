@@ -31,7 +31,7 @@ const AuthProvider = ({ children }) => {
         setAuth(data);
 
         //Esta sirve para no iniciar sesion a cada rato. Me guarda la sesion
-        navigate("/dashboard");
+        //navigate("/dashboard");
       } catch (error) {
         setAuth({});
       }
