@@ -4,13 +4,14 @@ import {
   obtenerViaje,
   actualizarViaje,
   eliminarViaje,
+  obtenerViajes,
 } from "../controllers/viajesController.js";
 
 import checkAuth from "../middleware/checkAuth.js";
 
 const router = express.Router();
 
-router.post("/", checkAuth, nuevoViaje);
+router.route("/").get(checkAuth, obtenerViajes).post(checkAuth, obtenerViajes);
 
 router
   .route("/:id")

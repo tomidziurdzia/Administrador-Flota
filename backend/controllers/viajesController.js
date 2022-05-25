@@ -3,6 +3,11 @@ import Acompanante from "../models/Acompanante.js";
 import Camion from "../models/Camion.js";
 import Viaje from "../models/Viaje.js";
 
+const obtenerViajes = async (req, res) => {
+  const viajes = await Viaje.find().where("creador").equals(req.usuario);
+  res.json(viajes);
+};
+
 const nuevoViaje = async (req, res) => {
   const { chofer, patente, acompanante } = req.body;
 
@@ -116,4 +121,10 @@ const eliminarViaje = async (req, res) => {
   }
 };
 
-export { nuevoViaje, obtenerViaje, actualizarViaje, eliminarViaje };
+export {
+  nuevoViaje,
+  obtenerViaje,
+  actualizarViaje,
+  eliminarViaje,
+  obtenerViajes,
+};
