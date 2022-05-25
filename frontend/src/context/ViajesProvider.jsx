@@ -9,7 +9,11 @@ const ViajesProvider = ({ children }) => {
   const [viajes, setViajes] = useState([]);
   const [viaje, setViaje] = useState({});
   const [modalFormularioViaje, setModalFormularioViaje] = useState(false);
+  const [modalFormularioChoferes, setModalFormularioChoferes] = useState(false);
+
   const [alerta, setAlerta] = useState({});
+  const [choferes, setChoferes] = useState([]);
+  const [chofer, setChofer] = useState({});
 
   const { auth } = useAuth();
 
@@ -41,6 +45,35 @@ const ViajesProvider = ({ children }) => {
     obtenerViajes();
   }, [auth]);
 
+  const handleModalChofer = () => {
+    setModalFormularioChoferes(!modalFormularioChoferes);
+    setChofer({});
+  };
+
+  useEffect(() => {
+    const obtenerChoferes = async () => {
+      try {
+        const token = localStorage.getItem("token");
+        if (!token) return;
+
+        const config = {
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+        };
+        const { data } = await clienteAxios("/choferes", config);
+
+        setChoferes(data);
+        console.log(data);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+
+    obtenerChoferes();
+  }, [auth]);
+
   return (
     <ViajesContext.Provider
       value={{
@@ -52,6 +85,12 @@ const ViajesProvider = ({ children }) => {
         setModalFormularioViaje,
         handleModalViaje,
         alerta,
+        setChoferes,
+        choferes,
+        chofer,
+        handleModalChofer,
+        setChofer,
+        modalFormularioChoferes,
       }}
     >
       {children}
