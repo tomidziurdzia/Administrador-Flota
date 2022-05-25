@@ -4,7 +4,13 @@ import clienteAxios from "../config/clienteAxios";
 const ViajesContext = createContext();
 
 const ViajesProvider = ({ children }) => {
-  return <ViajesContext.Provider value={{}}>{children}</ViajesContext.Provider>;
+  const [viajes, setViajes] = useState([]);
+
+  return (
+    <ViajesContext.Provider value={{ viajes }}>
+      {children}
+    </ViajesContext.Provider>
+  );
 };
 
 export { ViajesProvider };

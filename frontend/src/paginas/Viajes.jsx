@@ -1,6 +1,7 @@
-import React from "react";
+import useViajes from "../hooks/useViajes";
 
 const Viajes = () => {
+  const { viajes } = useViajes();
   return <div>Viajes</div>;
 };
 
