@@ -5,15 +5,25 @@ import useAuth from "../hooks/useAuth";
 
 const ViajesContext = createContext();
 
+/* const {
+  - modalFormularioTarea,
+  - handleModalTarea,
+  - mostrarAlerta,
+  - alerta,
+  - submitTarea,
+  - tarea,
+} = useProyectos(); */
+
 const ViajesProvider = ({ children }) => {
   const [viajes, setViajes] = useState([]);
   const [viaje, setViaje] = useState({});
   const [modalFormularioViaje, setModalFormularioViaje] = useState(false);
-  const [modalFormularioChoferes, setModalFormularioChoferes] = useState(false);
 
   const [alerta, setAlerta] = useState({});
-  const [choferes, setChoferes] = useState([]);
+  const [modalFormularioChoferes, setModalFormularioChoferes] = useState(false);
   const [chofer, setChofer] = useState({});
+
+  const [choferes, setChoferes] = useState([]);
 
   const { auth } = useAuth();
 
@@ -50,6 +60,14 @@ const ViajesProvider = ({ children }) => {
     setChofer({});
   };
 
+  const mostrarAlerta = (alerta) => {
+    setAlerta(alerta);
+
+    setTimeout(() => {
+      setAlerta({});
+    }, 5000);
+  };
+
   useEffect(() => {
     const obtenerChoferes = async () => {
       try {
@@ -74,6 +92,27 @@ const ViajesProvider = ({ children }) => {
     obtenerChoferes();
   }, [auth]);
 
+  const submitChofer = async (chofer) => {
+    try {
+      const token = localStorage.getItem("token");
+
+      const config = {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+      };
+
+      const { data } = await clienteAxios.post("/choferes", chofer, config);
+
+      setAlerta({});
+      setModalFormularioChoferes(false);
+      console.log(data);
+    } catch (error) {
+      setAlerta({ msg: error.response.data.msg, error: true });
+    }
+  };
+
   return (
     <ViajesContext.Provider
       value={{
@@ -91,6 +130,8 @@ const ViajesProvider = ({ children }) => {
         handleModalChofer,
         setChofer,
         modalFormularioChoferes,
+        mostrarAlerta,
+        submitChofer,
       }}
     >
       {children}

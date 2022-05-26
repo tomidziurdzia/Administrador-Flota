@@ -2,6 +2,7 @@ import useViajes from "../hooks/useViajes";
 import Alerta from "../components/Alerta";
 import ModalFormularioChoferes from "../components/ModalFormularioChoferes";
 import PreviewChofer from "../components/PreviewChofer";
+import { useEffect } from "react";
 
 const Choferes = () => {
   const { choferes, alerta, handleModalChofer } = useViajes();
@@ -11,7 +12,7 @@ const Choferes = () => {
   return (
     <>
       <div className="flex w-full justify-between items-center">
-        <h2 className="text-3xl font-bold text-gray-500">Viajes</h2>
+        <h2 className="text-3xl font-bold text-gray-500">Choferes</h2>
         <button
           onClick={handleModalChofer}
           type="button"

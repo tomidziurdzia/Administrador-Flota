@@ -1,8 +1,4 @@
-import { Link } from "react-router-dom";
-import useAuth from "../hooks/useAuth";
-
 const PreviewChofer = ({ chofer }) => {
-  const { auth } = useAuth;
   const {
     nombre,
     apellido,
@@ -17,10 +13,10 @@ const PreviewChofer = ({ chofer }) => {
       <p>{nombre}</p>
       <p>{apellido}</p>
       <p>{cuil}</p>
-      <p>{fechaCarnet}</p>
-      <p>{fechaLinti}</p>
-      <p>{fechaPsicofisico}</p>
-      <p>{fechaLibretaSanitaria}</p>
+      <p>{fechaCarnet.split("T")[0]}</p>
+      <p>{fechaLinti.split("T")[0]}</p>
+      <p>{fechaPsicofisico.split("T")[0]}</p>
+      <p>{fechaLibretaSanitaria.split("T")[0]}</p>
     </div>
   );
 };

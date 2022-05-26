@@ -2,10 +2,16 @@ import { Fragment, useState, useEffect } from "react";
 import { Dialog, Transition } from "@headlessui/react";
 import useViajes from "../hooks/useViajes";
 import Alerta from "./Alerta";
-import { useParams } from "react-router-dom";
 
 const ModalFormularioChoferes = () => {
-  const { modalFormularioChoferes, handleModalChofer, alerta } = useViajes();
+  const {
+    modalFormularioChoferes,
+    handleModalChofer,
+    mostrarAlerta,
+    alerta,
+    submitChofer,
+    chofer,
+  } = useViajes();
 
   const [id, setId] = useState("");
   const [nombre, setNombre] = useState("");
@@ -16,14 +22,66 @@ const ModalFormularioChoferes = () => {
   const [fechaPsicofisico, setFechaPsicofisico] = useState("");
   const [fechaLibretaSanitaria, setFechaLibretaSanitaria] = useState("");
 
+  useEffect(() => {
+    if (chofer?._id) {
+      setId(chofer._id);
+      setNombre(chofer.nombre);
+      setApellido(chofer.apellido);
+      setCuil(chofer.cuil);
+      setFechaCarnet(chofer.fechaCarne);
+      setFechaLinti(chofer.fechaLinti);
+      setFechaPsicofisico(chofer.fechaPsicofisico);
+      setFechaLibretaSanitaria(chofer.fechaLibretaSanitaria);
+      return;
+    }
+    setId("");
+    setNombre("");
+    setApellido("");
+    setCuil("");
+    setFechaCarnet("");
+    setFechaLinti("");
+    setFechaPsicofisico("");
+    setFechaLibretaSanitaria("");
+  }, [chofer]);
+
   const handleSubmit = async (e) => {
     e.preventDefault(e);
+    if (
+      [
+        nombre,
+        apellido,
+        cuil,
+        fechaCarnet,
+        fechaLinti,
+        fechaLibretaSanitaria,
+        fechaPsicofisico,
+      ].includes(0)
+    ) {
+      mostrarAlerta({
+        msg: "Todos los campos son obligatorios",
+        error: true,
+      });
+      return;
+    }
 
-    console.log(e);
-    mostrarAlerta({
-      msg: "Todos los campos son obligatorios",
-      error: true,
+    await submitChofer({
+      nombre,
+      apellido,
+      cuil,
+      fechaCarnet,
+      fechaLinti,
+      fechaLibretaSanitaria,
+      fechaPsicofisico,
     });
+
+    setId("");
+    setNombre("");
+    setApellido("");
+    setCuil("");
+    setFechaCarnet("");
+    setFechaLinti("");
+    setFechaPsicofisico("");
+    setFechaLibretaSanitaria("");
   };
 
   const { msg } = alerta;
@@ -93,7 +151,7 @@ const ModalFormularioChoferes = () => {
                     className="text-lg leading-6 font-bold text-gray-900"
                   >
                     <p className="text-3xl">
-                      {id ? "Editar Viaje" : "Nuevo Viaje"}
+                      {id ? "Editar Editar" : "Agregar Chofer"}
                     </p>
                   </Dialog.Title>
 
@@ -104,14 +162,106 @@ const ModalFormularioChoferes = () => {
                         className="text-gray-700 font-bold text-sm"
                         htmlFor="nombre"
                       >
-                        Fecha de Viaje
+                        Nombre
                       </label>
                       <input
                         id="nombre"
-                        type="date"
+                        type="text"
                         className="border-2 w-full p-2 mt-2 placeholder-gray-400 rounded-md"
                         value={nombre}
                         onChange={(e) => setNombre(e.target.value)}
+                      />
+                    </div>
+                    <div className="mb-5">
+                      <label
+                        className="text-gray-700 font-bold text-sm"
+                        htmlFor="apellido"
+                      >
+                        Apellido
+                      </label>
+                      <input
+                        id="apellido"
+                        type="text"
+                        className="border-2 w-full p-2 mt-2 placeholder-gray-400 rounded-md"
+                        value={apellido}
+                        onChange={(e) => setApellido(e.target.value)}
+                      />
+                    </div>
+                    <div className="mb-5">
+                      <label
+                        className="text-gray-700 font-bold text-sm"
+                        htmlFor="cuil"
+                      >
+                        CUIL
+                      </label>
+                      <input
+                        id="cuil"
+                        type="number"
+                        className="border-2 w-full p-2 mt-2 placeholder-gray-400 rounded-md"
+                        value={cuil}
+                        onChange={(e) => setCuil(e.target.value)}
+                      />
+                    </div>
+                    <div className="mb-5">
+                      <label
+                        className="text-gray-700 font-bold text-sm"
+                        htmlFor="fechaCarnet"
+                      >
+                        Carnet de Conducir
+                      </label>
+                      <input
+                        id="fechaCarnet"
+                        type="date"
+                        className="border-2 w-full p-2 mt-2 placeholder-gray-400 rounded-md"
+                        value={fechaCarnet}
+                        onChange={(e) => setFechaCarnet(e.target.value)}
+                      />
+                    </div>
+                    <div className="mb-5">
+                      <label
+                        className="text-gray-700 font-bold text-sm"
+                        htmlFor="fechaLinti"
+                      >
+                        Fecha Linti
+                      </label>
+                      <input
+                        id="fechaLinti"
+                        type="date"
+                        className="border-2 w-full p-2 mt-2 placeholder-gray-400 rounded-md"
+                        value={fechaLinti}
+                        onChange={(e) => setFechaLinti(e.target.value)}
+                      />
+                    </div>
+                    <div className="mb-5">
+                      <label
+                        className="text-gray-700 font-bold text-sm"
+                        htmlFor="fechaPsicofisico"
+                      >
+                        Fecha Psicofisico
+                      </label>
+                      <input
+                        id="fechaPsicofisico"
+                        type="date"
+                        className="border-2 w-full p-2 mt-2 placeholder-gray-400 rounded-md"
+                        value={fechaPsicofisico}
+                        onChange={(e) => setFechaPsicofisico(e.target.value)}
+                      />
+                    </div>
+                    <div className="mb-5">
+                      <label
+                        className="text-gray-700 font-bold text-sm"
+                        htmlFor="fechaLibretaSanitaria"
+                      >
+                        Fecha Libreta Sanitaria
+                      </label>
+                      <input
+                        id="fechaLibretaSanitaria"
+                        type="date"
+                        className="border-2 w-full p-2 mt-2 placeholder-gray-400 rounded-md"
+                        value={fechaLibretaSanitaria}
+                        onChange={(e) =>
+                          setFechaLibretaSanitaria(e.target.value)
+                        }
                       />
                     </div>
                     <input
